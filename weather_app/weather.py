@@ -22,7 +22,14 @@ class HomeScreen(MDScreen):
         }
         data = requests.get(API_URL,api_args)#робимо запит
         response = data.json()#отримуємоп відповідь в JSON
+        temp_data = response['main']['temp']
+        weather_data = response['weather'][0]['main']
+        desc_data = response['weather'][0]['description']
+        wind_data = response['wind']['speed']
+        self.ids.weather_text.text = desc_data.capitalize()
+        self.ids.temp_text.text = str(round(temp_data))+ '*'
         print(response)
+        print(temp_data)
 
 
 
