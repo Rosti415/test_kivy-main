@@ -39,7 +39,7 @@ class HomeScreen(MDScreen):
 class MyWeatherApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Purple"
+        self.theme_cls.primary_palette = "Blue"
         Builder.load_file('style.kv')
         return HomeScreen()
 
