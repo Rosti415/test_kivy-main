@@ -27,7 +27,8 @@ class HomeScreen(MDScreen):
         desc_data = response['weather'][0]['description']
         wind_data = response['wind']['speed']
         self.ids.weather_text.text = desc_data.capitalize()
-        self.ids.temp_text.text = str(round(temp_data))+ '*'
+        self.ids.temp_text.text = "Dg: " + str(round(temp_data))+ '*'
+        self.ids.wind_text.text = "Windy: " + str(round(wind_data)) + 'm/s'
         print(response)
         print(temp_data)
 
