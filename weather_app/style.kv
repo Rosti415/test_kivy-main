@@ -14,11 +14,6 @@
             halign: "center"
             font_style: "H4"
         MDLabel:
-            id: wind_speed_text
-            text: ""
-            halign:"center"
-            font_style: "H6"
-        MDLabel:
             id: rain_pop_text
             text: ""
             halign:"left"
@@ -28,12 +23,17 @@
             text: ""
             halign:"left"
             font_style: "Subtitle2"
+        MDLabel:
+            id: wind_speed_text
+            text: ""
+            halign:"center"
+            font_style: "Subtitle2"
 
 
 <HomeScreen>:
     MDBoxLayout:
         orientation: 'vertical'
-        spacing: "25sp"
+        spacing: "20sp"
 
 
         MDCarousel:
@@ -44,7 +44,7 @@
 
 
         MDTextField:
-            id:city
+            id: city
             hint_text: "Введіть місто"
             mode: 'fill'
             size_hint:(0.9,None)
