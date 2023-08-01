@@ -17,7 +17,7 @@ class WeatherCard(MDCard):
             self.ids.weather_text.text = weather_text.capitalize()
             self.ids.temp_text.text = "Dg: " + str(round(temp))+ '°C'
             if rain_pop:
-                self.ids.rain_pop_text.text = f"Ймовірність опадів: {round(rain_pop)* 100}%"
+                self.ids.rain_pop_text.text = f"Ймовірність опадів: {round(rain_pop)*100}%"
             self.ids.rain_text.text = f"Кількість опадів: {rain} mm"
             self.ids.wind_speed_text.text = f"Швидкість вітру: {wind_speed} м/c"
 
@@ -62,4 +62,5 @@ class MyWeatherApp(MDApp):
         return HomeScreen()
 
 
-MyWeatherApp().run()
+app = MyWeatherApp()
+app.run()
