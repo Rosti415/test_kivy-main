@@ -7,13 +7,15 @@ from kivymd.uix.button import MDRectangleFlatButton
 import requests
 
 from config import*
+import datetime
 
 API_URL = "https://api.openweathermap.org/data/2.5/weather?&units=metric&lang=ua" 
-FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&lang=ua"
+FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?&cnt=7&units=metric&lang=ua"
 
 class WeatherCard(MDCard):
-    def __init__(self, temp, weather_text, wind_speed, rain, rain_pop = None):
+    def __init__(self, date,temp, weather_text, wind_speed, rain, rain_pop = None):
             super().__init__()
+            self.ids.date_text.text = str(date)
             self.ids.weather_text.text = weather_text.capitalize()
             self.ids.temp_text.text = "Dg: " + str(round(temp))+ '°C'
             if rain_pop:
@@ -37,6 +39,7 @@ class HomeScreen(MDScreen):
             'q': city,
             'appid': API_KEY
         }
+        #поточна погода
         data = requests.get(API_URL,api_args)#робимо запит
         response = data.json()#отримуємоп відповідь в JSON
         print(response)
@@ -44,12 +47,32 @@ class HomeScreen(MDScreen):
         weather_data = response['weather'][0]['main']
         desc_data = response['weather'][0]['description']
         wind_data = response['wind']['speed']
-        rain_data = response['rain']['1h']
-        new_card = WeatherCard(temp_data,desc_data,wind_data,rain_data)
+        if 'rain' in response:
+            rain_data = response['rain']['1h']
+        else:
+            rain_data = 0
+        new_card = WeatherCard("Зараз",temp_data,desc_data,wind_data,rain_data)
         self.ids.weather_carousel.add_widget(new_card)
       
 
-
+        #прогноз погоди
+        data = requests.get(FORECAST_URL,api_args)#робимо запит
+        response = data.json()#отримуємоп відповідь в JSON
+        for period in response['list']:
+            date_data = period['dt']
+            date_obj = datetime.datetime.fromtimestamp(date_data)
+            date = date_obj.strftime('%H:%M\n%A,%d %b')#функція для перетворення в зручний формат дати
+            temp_data = period['main']['temp']
+            weather_data = period['weather'][0]['main']
+            desc_data = period['weather'][0]['description']
+            wind_data = period['wind']['speed']
+            if 'rain' in period:
+                rain_data = period['rain']['3h']
+            else:
+                rain_data = 0
+            rain_pop = period['pop']
+            new_card = WeatherCard(date,temp_data,desc_data,wind_data,rain_data,rain_pop)
+            self.ids.weather_carousel.add_widget(new_card)
 
 
 
