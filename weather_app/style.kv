@@ -8,6 +8,13 @@
             text: ""
             halign: "center"
             font_style: "H6"
+        AsyncImage:
+            id: icon
+            fit_mode: "contain"
+            size_hint: (None,None)
+            height: '70sp'
+            width: '70sp'
+            pos_hint:{'center_x': 0.5}
         MDLabel:
             id:weather_text
             text: "Weather"
@@ -39,21 +46,20 @@
     MDBoxLayout:
         orientation: 'vertical'
         spacing: "20sp"
-
-
-        MDCarousel:
-            id: weather_carousel
-            direction: "right"
-            padding: 10
-
-
-
-        MDTextField:
-            id: city
-            hint_text: "Введіть місто"
-            mode: 'fill'
-            size_hint:(0.9,None)
-            pos_hint: {'center_x': 0.5}     
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: ['0sp','20sp']
+            size_hint: (1 , 0.8)
+            MDTextField:
+                id: city
+                hint_text: "Введіть місто"
+                mode: 'fill'
+                size_hint:(0.9,None)
+                pos_hint: {'center_x': 0.5}  
+            MDCarousel:
+                id: weather_carousel
+                direction: "right"
+                padding: 10   
         MDBottomAppBar:
 
             MDTopAppBar:
