@@ -47,7 +47,6 @@ class HomeScreen(MDScreen):
         try:
             data = requests.get(API_URL,api_args)#робимо запит
             response = data.json()#отримуємоп відповідь в JSON
-            print(response)
             temp_data = response['main']['temp']
             weather_data = response['weather'][0]['main']
             desc_data = response['weather'][0]['description']
